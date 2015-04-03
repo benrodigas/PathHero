@@ -16,6 +16,6 @@ module.exports = function(app) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  console.log('Serving Static Folder:', __dirname + '/../../Client/');
-  app.use(express.static(__dirname + '/../../Client/'));
+  console.log('Serving Static Folder:', __dirname + '/../../Client/app/');
+  app.use(express.static(__dirname + '/../../Client/app/'));
 };
