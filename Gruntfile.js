@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 
     sass: {
       dev: {
-        src: ['Client/style/*.sass'],
+        src: ['Client/style/style.scss'],
         dest: 'Client/style/style.css',
       },
     },
