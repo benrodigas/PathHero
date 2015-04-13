@@ -331,7 +331,7 @@ var Pin = React.createClass({
         <NameLocation editLocationMode={this.state.editLocationMode} 
                          answer={this.state.data[index].name} inputLocation={this.inputLocation} />
         <Accordion>
-          <Panel onDoubleClick={this.nameLocation} eventKey={index}
+          <Panel className={"in"} onDoubleClick={this.nameLocation} eventKey={index}
             header={"Pin " + (index+1) + ": " +this.state.data[index].answer} >
           {clueNodes}
           <textarea col="35" row="30" ref="clueInput" />

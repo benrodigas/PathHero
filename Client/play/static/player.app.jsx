@@ -63,40 +63,12 @@ var RouteHandler = Router.RouteHandler;
 
 var PlayerApp = React.createClass({  
   getInitialState: function() {    
-    return {hunt: false};
+    return {hunt: Hunt};
   },
 
   componentWillMount: function() {
-    
-    $.ajax({
-      method: 'GET',
-      url: 'http://create.wettowelreactor.com'+window.location.pathname,
-      context: document.body
-    }).done(function(data) {
-                  
-      data.storage = {};
 
-      data.set = function(key, value) {
-        this.storage[key] = value;
-        localStorage.setItem(key, value);
-      };
-      data.get = function(key) {
-        if (this.storage[key] !== undefined) {
-          return this.storage[key];
 
-        } else if (localStorage[key] !== undefined) {
-          this.storage[key] = localStorage[key];
-          return localStorage[key];
-
-        } else {
-          this.set(key, 0);
-          return 0;
-        }
-      };
-
-      this.setState({hunt: data});
-
-    }).bind(this);
 
     gMap.importMap([[37.7902554,-122.42340160000003],[37.7902554,-122.42340160000003]]);
   },
@@ -196,43 +168,83 @@ var HuntSummaryContainer = React.createClass({
   }
 });
 
+var targetLoc = {
+  lat: 37.7838075,
+  lon: -122.40905669999998
+}
+
+var currentLoc = {
+  lat: null,
+  lon: null
+}
+
+
 var Status = React.createClass({
+
   getInitialState: function() {    
     return {
-      hunt: Hunt
+      hunt: Hunt,
+      currentLoc: currentLoc
     };
   },
 
+  getLocation: function () {   
+    var that = this;
+    navigator.geolocation.getCurrentPosition(showPosition);    
+    function showPosition(position) {       
+      currentLoc.lat = position.coords.latitude;
+      currentLoc.lon = position.coords.longitude;
+      that.setState({currentLoc: currentLoc})
+    } 
+  },
+
   componentWillMount: function() {
-    var nextPinDistance = null;
-    gMap.getDistanceByLocation(function (value) {
-      nextPinDistance = value;
-    });
+    var nextPinDistance = gMap.getDistanceByLocation(function (value) {
+    })
+    this.getLocation();
   },
 
   render: function () {
+
     var numOfLocations = this.state.hunt.huntInfo.numOfLocations;
     var huntTimeEst = this.state.hunt.huntInfo.huntTimeEst;
     var huntDistance = this.state.hunt.huntInfo.huntDistance;
     var listItemArray = [ numOfLocations + " locations", 
                           huntTimeEst + " hr to completion", 
                           huntDistance + " miles"];
+    
+
+    var locationStatus;    
+    var locationSummary = (<TitleBox title="Location Summary"><List listItemArray={listItemArray} /></TitleBox>);
+    
+    var success = (<h1>Success! Youre at the correct location</h1>);
+
+    var latDiff = targetLoc.lat - currentLoc.lat;
+    var lonDiff = targetLoc.lon - currentLoc.lon;
+
+    if (latDiff>2 && lonDiff<2) {
+      locationStatus = success;
+    } else {
+      locationStatus = locationSummary;
+    }
+
+    var mainStatusDisplay;
+    var loading = (<div>Loading...</div>);
+    var statusReturn = (<div>{locationStatus}<HuntSummaryContainer/><BottomNav/></div>);    
+
+    if (!currentLoc.lat || !currentLoc.lon) {
+      mainStatusDisplay = loading;
+    } else {
+      mainStatusDisplay = statusReturn;
+    }
+
     return (
       <div>
-        <TitleBox title="Location Summary">            
-          <List listItemArray={listItemArray} />
-        </TitleBox>
-
-
-
-        <HuntSummaryContainer/>
-
-        <BottomNav/>
+        {mainStatusDisplay}
       </div>
-    );
+    )
   }
 });
-
 var Welcome = React.createClass({
   render: function () {      
     return (
