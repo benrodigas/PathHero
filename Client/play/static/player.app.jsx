@@ -124,19 +124,19 @@ var BottomNav = React.createClass({
 
   render: function () {
 
-    var status = classNames("col-xs-4", {active: false})
+    var status = classNames({active: false})
 
     return (                   
       <div id="bottomNav">
         <div className="row">
-          <div className={status}>
-            <span><Link to="status">Status</Link></span>
+          <div className="col-xs-4">
+            <span><Link to="status" className={status}>Status</Link></span>
           </div>
-          <div className={status}>
-            <span><Link to="clues">Clues</Link></span>
+          <div className="col-xs-4">
+            <span><Link to="clues" className={status}>Clues</Link></span>
           </div>
-          <div className={status}>
-            <span><Link to="map">Map</Link></span>
+          <div className="col-xs-4">
+            <span><Link to="map" className={status}>Map</Link></span>
           </div>
         </div>
       </div>      

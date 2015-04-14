@@ -124,19 +124,19 @@ var BottomNav = React.createClass({displayName: "BottomNav",
 
   render: function () {
 
-    var status = classNames("col-xs-4", {active: false})
+    var status = classNames({active: false})
 
     return (                   
       React.createElement("div", {id: "bottomNav"}, 
         React.createElement("div", {className: "row"}, 
-          React.createElement("div", {className: status}, 
-            React.createElement("span", null, React.createElement(Link, {to: "status"}, "Status"))
+          React.createElement("div", {className: "col-xs-4"}, 
+            React.createElement("span", null, React.createElement(Link, {to: "status", className: status}, "Status"))
           ), 
-          React.createElement("div", {className: status}, 
-            React.createElement("span", null, React.createElement(Link, {to: "clues"}, "Clues"))
+          React.createElement("div", {className: "col-xs-4"}, 
+            React.createElement("span", null, React.createElement(Link, {to: "clues", className: status}, "Clues"))
           ), 
-          React.createElement("div", {className: status}, 
-            React.createElement("span", null, React.createElement(Link, {to: "map"}, "Map"))
+          React.createElement("div", {className: "col-xs-4"}, 
+            React.createElement("span", null, React.createElement(Link, {to: "map", className: status}, "Map"))
           )
         )
       )      
