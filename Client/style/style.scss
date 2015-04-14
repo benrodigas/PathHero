@@ -34,6 +34,10 @@ $screen-sm-max:              ($screen-md-min - 1) !default;
 $screen-md-max:              ($screen-lg-min - 1) !default;
 
 
+html, body {
+  height: 100%;
+}
+
 
   h2 {
     color: #848484;
@@ -43,7 +47,8 @@ $screen-md-max:              ($screen-lg-min - 1) !default;
   }
 
   #gMap {
-    width: 50%;
+    width: 100%;
+
     height: 800px;
   }
 
@@ -126,5 +131,37 @@ $screen-md-max:              ($screen-lg-min - 1) !default;
     padding-bottom : 5px;
   }
 
+
+#player-container {
+  
+  #bottomNav {
+    position: fixed;
+    bottom: 0;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+    .row {
+      margin: 0;
+    }
+    .col-xs-4 {
+      height: 50px;
+      padding-top: 14px;
+      background-color: #000;
+      a {
+        color: #fff;
+      }
+    }
+    .col-xs-4:nth-child(2) {
+      border-left: 1px solid #5C5555;
+      border-right: 1px solid #5C5555;
+    }
+
+    .active {
+      background-color: yellow;
+    }
+    
+  }
+
+}
   
 
