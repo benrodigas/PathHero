@@ -104,7 +104,7 @@ var HuntMap = React.createClass({displayName: "HuntMap",
   },
   render: function() {
     return (
-      React.createElement("div", {id: "gMap", className: "col-xs-6"}
+      React.createElement("div", {id: "gMapCreator", className: "col-xs-6"}
       )  
     );
   }
